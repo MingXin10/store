@@ -1,35 +1,33 @@
+import { ReactNode } from 'react'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
+
+import Providers from './providers'
 
 import './globals.css'
+import Container from '@/components/global/Container'
+import Navbar from '@/components/navbar/NavBar'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Store app',
   description: "Joey's Store"
 }
 
-export default function RootLayout({
+const RootLayout = ({
   children
 }: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  )
-}
+  children: ReactNode
+}>) => (
+  <html lang="en" suppressHydrationWarning>
+    <body className={inter.className}>
+      <Providers>
+        <Navbar />
+        <Container className="py-20">{children}</Container>
+      </Providers>
+    </body>
+  </html>
+)
+
+export default RootLayout

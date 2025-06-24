@@ -1,3 +1,12 @@
-const HomePage = () => <div>Home</div>
+import { Button } from '@/components/ui/button'
 
-export default HomePage
+const Home = () => (
+  <div>
+    <h1 className="text-3xl">Home</h1>
+    <Button className="capitalize m-8" size="lg" variant="outline">
+      Click Me
+    </Button>
+  </div>
+)
+
+export default Home

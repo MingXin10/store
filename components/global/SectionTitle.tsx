@@ -1,4 +1,4 @@
-import { Separator } from '@/components/ui/Separator1'
+import { Separator } from '@/components/ui/Separator'
 
 interface SectionTitleProps {
   text: string

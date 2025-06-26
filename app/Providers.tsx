@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import ThemeProvider from './theme-provider'
+import ThemeProvider from './ThemeProvider'
 
 const Providers = ({ children }: PropsWithChildren) => (
   <ThemeProvider

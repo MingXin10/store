@@ -1,11 +1,10 @@
-import { Button } from '@/components/ui/button'
+import FeaturedProducts from '@/components/home/FeaturedProducts'
+import Hero from '@/components/home/Hero'
 
 const Home = () => (
   <div>
-    <h1 className="text-3xl">Home</h1>
-    <Button className="capitalize m-8" size="lg" variant="outline">
-      Click Me
-    </Button>
+    <Hero />
+    <FeaturedProducts />
   </div>
 )
 

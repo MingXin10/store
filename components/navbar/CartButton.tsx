@@ -1,7 +1,7 @@
 import { LuShoppingCart } from 'react-icons/lu'
 import Link from 'next/link'
 
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/Button'
 
 const CartButton = () => {
   // TODO: Replace with actual cart item count logic

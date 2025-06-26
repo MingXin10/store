@@ -1,15 +1,15 @@
 import { LuAlignLeft } from 'react-icons/lu'
 import Link from 'next/link'
 
-import { Button } from '../ui/button'
 import { LINK_LIST } from './constants'
 
+import { Button } from '@/components/ui/Button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/DropdownMenu'
 
 const LinksDropdown = () => (
   <DropdownMenu>

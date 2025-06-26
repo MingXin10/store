@@ -1,4 +1,4 @@
-import { Input } from '../ui/input'
+import { Input } from '@/components/ui/Input1'
 
 const NavSearch = () => (
   <Input

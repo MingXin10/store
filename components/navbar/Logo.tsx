@@ -1,7 +1,7 @@
 import { IoHome } from 'react-icons/io5'
 import Link from 'next/link'
 
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/Button'
 
 const Logo = () => (
   <Button asChild size="icon">

@@ -1,9 +1,10 @@
-import Container from '../global/Container'
 import CartButton from './CartButton'
 import LinksDropdown from './LinksDropdown'
 import Logo from './Logo'
 import NavSearch from './NavSearch'
 import ThemeMode from './ThemeMode'
+
+import Container from '@/components/global/Container'
 
 const Navbar = () => (
   <div className="border-b">

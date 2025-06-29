@@ -6,15 +6,15 @@ import ProductsList from './ProductsList'
 
 import { Button } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
-import { fetchFeaturedProducts } from '@/utils/fetchFeaturedProducts'
+import { fetchAllProducts } from '@/utils/fetchAllProducts'
 
 interface SearchParamProps {
   layout?: string
   search?: string
 }
 
-const ProductsContainer = async ({ layout, search }: SearchParamProps) => {
-  const productList = await fetchFeaturedProducts()
+const ProductsContainer = async ({ layout, search = '' }: SearchParamProps) => {
+  const productList = await fetchAllProducts({ search })
 
   const totalProductCounts = productList.length
 

@@ -78,6 +78,7 @@ const eslintConfig = [
       ],
       'arrow-body-style': ['error', 'as-needed'],
       'quote-props': ['error', 'consistent'],
+      '@typescript-eslint/no-unused-vars': 'off',
       'padding-line-between-statements': [
         'error',
         {

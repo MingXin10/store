@@ -1,11 +1,12 @@
 'use server'
 
 import { currentUser } from '@clerk/nextjs/server'
+import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import db from './db'
 import { IMAGE_SCHEMA, PRODUCT_SCHEMA } from './productSchema'
-import { uploadImage } from './supabase'
+import { deleteImage, uploadImage } from './supabase'
 import type { ActionFunction } from './types'
 import { validateWithZodSchema } from './validateWithZodSchema'
 
@@ -111,4 +112,26 @@ export const createProduct: ActionFunction = async (prevState, formData) => {
     return renderError(error)
   }
   redirect('/admin/products')
+}
+
+export const deleteProductAction = async (prevState: { productId: string }) => {
+  const { productId } = prevState
+
+  await getAdminUser()
+
+  try {
+    const product = await db.product.delete({
+      where: {
+        id: productId
+      }
+    })
+
+    await deleteImage(product.image)
+
+    revalidatePath('/admin/products')
+
+    return { message: 'product removed' }
+  } catch (error) {
+    return renderError(error)
+  }
 }

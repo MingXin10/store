@@ -1,9 +1,7 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
-import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import { LuSquare, LuTrash2 } from 'react-icons/lu'
-import { SignInButton } from '@clerk/nextjs'
+import { LuSquarePen, LuTrash2 } from 'react-icons/lu'
 import { ReloadIcon } from '@radix-ui/react-icons'
 
 import { Button } from '@/components/ui/Button'
@@ -43,4 +41,34 @@ const SubmitButton = ({
   )
 }
 
-export { SubmitButton }
+type ActionType = 'edit' | 'delete'
+
+const IconButton = ({ actionType }: { actionType: ActionType }) => {
+  const { pending } = useFormStatus()
+
+  const renderIcon = () => {
+    switch (actionType) {
+      case 'edit':
+        return <LuSquarePen />
+      case 'delete':
+        return <LuTrash2 />
+      default:
+        const never: never = actionType
+
+        throw new Error(`Invalid action type: ${never}`)
+    }
+  }
+
+  return (
+    <Button
+      className="p-2 cursor-pointer"
+      size="icon"
+      type="submit"
+      variant="link"
+    >
+      {pending ? <ReloadIcon className=" animate-spin" /> : renderIcon()}
+    </Button>
+  )
+}
+
+export { SubmitButton, IconButton }

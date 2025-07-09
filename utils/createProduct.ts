@@ -1,9 +1,13 @@
 'use server'
 
-import { auth, currentUser } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 
 import db from './db'
+import { IMAGE_SCHEMA, PRODUCT_SCHEMA } from './productSchema'
+import { uploadImage } from './supabase'
 import type { ActionFunction } from './types'
+import { validateWithZodSchema } from './validateWithZodSchema'
 
 const getAuthUser = async () => {
   const user = await currentUser()
@@ -26,35 +30,28 @@ const renderError = (error: unknown): { message: string } => {
 export const createProduct: ActionFunction = async (prevState, formData) => {
   const user = await getAuthUser()
 
-  console.log('user:', user)
-
   try {
-    const name = formData.get('name') as string
+    const rawData = Object.fromEntries(formData)
 
-    const company = formData.get('company') as string
+    const validatedFields = validateWithZodSchema(PRODUCT_SCHEMA, rawData)
 
-    const price = Number(formData.get('price') as string)
+    const imageFile = formData.get('image') as File
 
-    const image = formData.get('image') as File
+    const validatedImageFile = validateWithZodSchema(IMAGE_SCHEMA, {
+      image: imageFile
+    })
 
-    const description = formData.get('description') as string
-
-    const featured = Boolean(formData.get('featured') as string)
+    const imagePath = await uploadImage(validatedImageFile.image)
 
     await db.product.create({
       data: {
-        name,
-        company,
-        price,
-        image: '/images/hero1.jpg',
-        description,
-        featured,
+        ...validatedFields,
+        image: imagePath,
         clerkId: user.id
       }
     })
-
-    return { message: 'product created' }
   } catch (error) {
     return renderError(error)
   }
+  redirect('/admin/products')
 }

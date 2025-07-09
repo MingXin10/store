@@ -4,7 +4,7 @@ import FavoriteToggleButton from '@/components/products/FavoriteToggleButton'
 import AddToCart from '@/components/single-product/AddToCart'
 import BreadCrumbs from '@/components/single-product/BreadCrumbs'
 import ProductRating from '@/components/single-product/ProductRating'
-import { fetchSingleProduct } from '@/utils/fetchSingleProduct'
+import { fetchSingleProduct } from '@/utils/dbActions'
 import { formatCurrency } from '@/utils/formatCurrency'
 
 interface SingleProductPageProps {

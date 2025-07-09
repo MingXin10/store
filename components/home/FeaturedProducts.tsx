@@ -1,7 +1,7 @@
 import EmptyList from '@/components/global/EmptyList'
 import SectionTitle from '@/components/global/SectionTitle'
 import ProductsGrid from '@/components/products/ProductsGrid'
-import { fetchFeaturedProducts } from '@/utils/fetchFeaturedProducts'
+import { fetchFeaturedProducts } from '@/utils/dbActions'
 
 const FeaturedProducts = async () => {
   const productList = await fetchFeaturedProducts()

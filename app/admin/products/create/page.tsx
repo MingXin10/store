@@ -7,7 +7,7 @@ import FormInput from '@/components/form/FormInput'
 import ImageInput from '@/components/form/ImageInput'
 import PriceInput from '@/components/form/PriceInput'
 import TextAreaInput from '@/components/form/TextAreaInput'
-import { createProduct } from '@/utils/createProduct'
+import { createProduct } from '@/utils/dbActions'
 
 const CreateProductPage = () => {
   const name = faker.commerce.productName()

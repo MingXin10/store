@@ -9,12 +9,69 @@ import { uploadImage } from './supabase'
 import type { ActionFunction } from './types'
 import { validateWithZodSchema } from './validateWithZodSchema'
 
+export const fetchAllProducts = async ({ search = '' }: { search: string }) =>
+  db.product.findMany({
+    where: {
+      OR: [
+        { name: { contains: search, mode: 'insensitive' } },
+        { company: { contains: search, mode: 'insensitive' } }
+      ]
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+export const fetchFeaturedProducts = async () => {
+  const productList = await db.product.findMany({
+    where: {
+      featured: true
+    }
+  })
+
+  return productList
+}
+
+export const fetchSingleProduct = async (productId: string) => {
+  const product = await db.product.findUnique({
+    where: {
+      id: productId
+    }
+  })
+
+  if (!product) {
+    redirect('/products')
+  }
+
+  return product
+}
+
+export const fetchAdminProducts = async () => {
+  await getAdminUser()
+
+  const productList = await db.product.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return productList
+}
+
 const getAuthUser = async () => {
   const user = await currentUser()
 
   if (!user) {
     throw new Error('You must be logged in to access this route')
   }
+
+  return user
+}
+
+export const getAdminUser = async () => {
+  const user = await getAuthUser()
+
+  if (user.id !== process.env.ADMIN_USER_ID) redirect('/')
 
   return user
 }

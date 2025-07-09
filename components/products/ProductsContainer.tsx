@@ -6,7 +6,7 @@ import ProductsList from './ProductsList'
 
 import { Button } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
-import { fetchAllProducts } from '@/utils/fetchAllProducts'
+import { fetchAllProducts } from '@/utils/dbActions'
 
 interface SearchParamProps {
   layout?: string

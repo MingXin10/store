@@ -3,6 +3,7 @@ export const LINK_LIST = [
   { href: '/about', label: 'about' },
   { href: '/cart', label: 'cart' },
   { href: '/favorites', label: 'favorites' },
+  { href: '/reviews', label: 'reviews' },
   { href: '/orders', label: 'orders' },
   { href: '/products', label: 'products' },
   { href: '/admin/sales', label: 'dashboard' }

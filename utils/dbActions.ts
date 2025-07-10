@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import db from './db'
-import { IMAGE_SCHEMA, PRODUCT_SCHEMA } from './productSchema'
+import { IMAGE_SCHEMA, PRODUCT_SCHEMA, REVIEW_SCHEMA } from './productSchema'
 import { deleteImage, uploadImage } from './supabase'
 import type { ActionFunction } from './types'
 import { validateWithZodSchema } from './validateWithZodSchema'
@@ -273,3 +273,113 @@ export const fetchUserFavoriteList = async () => {
 
   return favoriteList
 }
+
+export const createReviewAction = async (
+  prevState: unknown,
+  formData: FormData
+) => {
+  const user = await getAuthUser()
+
+  try {
+    const rawData = Object.fromEntries(formData)
+
+    const validatedFields = validateWithZodSchema(REVIEW_SCHEMA, rawData)
+
+    await db.review.create({
+      data: {
+        ...validatedFields,
+        clerkId: user.id
+      }
+    })
+    revalidatePath(`/products/${validatedFields.productId}`)
+
+    return { message: 'Review submitted successfully' }
+  } catch (error) {
+    return renderError(error)
+  }
+}
+
+export const fetchProductReviews = async (productId: string) => {
+  const reviewList = await db.review.findMany({
+    where: {
+      productId
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return reviewList
+}
+
+export const fetchProductRating = async (productId: string) => {
+  const ratingList = await db.review.groupBy({
+    by: ['productId'],
+    _avg: {
+      rating: true
+    },
+    _count: {
+      rating: true
+    },
+    where: {
+      productId
+    }
+  })
+
+  return {
+    rating: ratingList[0]?._avg.rating?.toFixed(1) ?? 0,
+    counts: ratingList[0]?._count.rating ?? 0
+  }
+}
+
+export const fetchProductReviewsByUser = async () => {
+  const user = await getAuthUser()
+
+  const reviewList = await db.review.findMany({
+    where: {
+      clerkId: user.id
+    },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      product: {
+        select: {
+          image: true,
+          name: true
+        }
+      }
+    }
+  })
+
+  return reviewList
+}
+
+export const deleteReviewAction = async (prevState: { reviewId: string }) => {
+  const { reviewId } = prevState
+
+  const user = await getAuthUser()
+
+  try {
+    await db.review.delete({
+      where: {
+        id: reviewId,
+        clerkId: user.id
+      }
+    })
+
+    revalidatePath('/reviews')
+
+    return { message: 'Review deleted successfully' }
+  } catch (error) {
+    return renderError(error)
+  }
+}
+
+export const findExistingReview = async (userId: string, productId: string) =>
+  db.review.findFirst({
+    where: {
+      clerkId: userId,
+      productId
+    }
+  })

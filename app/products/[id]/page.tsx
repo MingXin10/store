@@ -1,11 +1,14 @@
+import { auth } from '@clerk/nextjs/server'
 import Image from 'next/image'
 
 import FavoriteToggleButton from '@/components/products/FavoriteToggleButton'
+import ProductReviews from '@/components/reviews/ProductReviews'
+import SubmitReview from '@/components/reviews/SubmitReview'
 import AddToCart from '@/components/single-product/AddToCart'
 import BreadCrumbs from '@/components/single-product/BreadCrumbs'
 import ProductRating from '@/components/single-product/ProductRating'
 import ShareButton from '@/components/single-product/ShareButton'
-import { fetchSingleProduct } from '@/utils/dbActions'
+import { fetchSingleProduct, findExistingReview } from '@/utils/dbActions'
 import { formatCurrency } from '@/utils/formatCurrency'
 
 interface SingleProductPageProps {
@@ -13,6 +16,8 @@ interface SingleProductPageProps {
 }
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
+  const { userId } = auth()
+
   const { id } = await params
 
   const product = await fetchSingleProduct(id)
@@ -20,6 +25,8 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
   const { name, image, company, description, price } = product
 
   const formattedPrice = formatCurrency(price)
+
+  const hasNoReview = userId && !(await findExistingReview(userId, id))
 
   return (
     <section>
@@ -52,6 +59,8 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
           <AddToCart productId={id} />
         </div>
       </div>
+      <ProductReviews productId={id} />
+      {hasNoReview && <SubmitReview productId={id} />}
     </section>
   )
 }

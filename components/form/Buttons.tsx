@@ -1,18 +1,18 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { LuSquarePen, LuTrash2 } from 'react-icons/lu'
+import { SignInButton } from '@clerk/nextjs'
 import { ReloadIcon } from '@radix-ui/react-icons'
 
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 
-type ButtonSize = 'default' | 'lg' | 'sm'
-
-type SubmitButtonProps = {
+interface SubmitButtonProps {
   className?: string
   text?: string
-  size?: ButtonSize
+  size?: 'default' | 'lg' | 'sm'
 }
 
 const SubmitButton = ({
@@ -41,9 +41,11 @@ const SubmitButton = ({
   )
 }
 
-type ActionType = 'edit' | 'delete'
+interface ActionType {
+  actionType: 'edit' | 'delete'
+}
 
-const IconButton = ({ actionType }: { actionType: ActionType }) => {
+const IconButton = ({ actionType }: ActionType) => {
   const { pending } = useFormStatus()
 
   const renderIcon = () => {
@@ -71,4 +73,43 @@ const IconButton = ({ actionType }: { actionType: ActionType }) => {
   )
 }
 
-export { SubmitButton, IconButton }
+const CardSignInButton = () => (
+  <SignInButton mode="modal">
+    <Button
+      asChild
+      className="p-2 cursor-pointer"
+      size="icon"
+      type="button"
+      variant="outline"
+    >
+      <FaRegHeart />
+    </Button>
+  </SignInButton>
+)
+
+interface CardSubmitButton {
+  isFavorite: boolean
+}
+
+const CardSubmitButton = ({ isFavorite }: CardSubmitButton) => {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button
+      className=" p-2 cursor-pointer"
+      size="icon"
+      type="submit"
+      variant="outline"
+    >
+      {pending ? (
+        <ReloadIcon className=" animate-spin" />
+      ) : isFavorite ? (
+        <FaHeart />
+      ) : (
+        <FaRegHeart />
+      )}
+    </Button>
+  )
+}
+
+export { SubmitButton, IconButton, CardSignInButton, CardSubmitButton }

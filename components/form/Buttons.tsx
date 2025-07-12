@@ -112,4 +112,18 @@ const CardSubmitButton = ({ isFavorite }: CardSubmitButton) => {
   )
 }
 
-export { SubmitButton, IconButton, CardSignInButton, CardSubmitButton }
+const ProductSignInButton = () => (
+  <SignInButton mode="modal">
+    <Button className="mt-8" size="default" type="button">
+      Please Sign In
+    </Button>
+  </SignInButton>
+)
+
+export {
+  SubmitButton,
+  IconButton,
+  CardSignInButton,
+  CardSubmitButton,
+  ProductSignInButton
+}

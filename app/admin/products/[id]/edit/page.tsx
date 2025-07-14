@@ -12,12 +12,12 @@ import {
 } from '@/utils/dbActions'
 
 interface EditProductPageProps {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
-const EditProductPage = async ({ params: { id } }: EditProductPageProps) => {
+const EditProductPage = async ({ params }: EditProductPageProps) => {
+  const { id } = await params
+
   const product = await fetchAdminProductDetails(id)
 
   const { name, company, description, featured, price, image } = product

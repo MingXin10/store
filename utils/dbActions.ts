@@ -558,10 +558,22 @@ export const createOrderAction = async (
 ) => {
   const user = await getAuthUser()
 
+  let orderId: null | string = null
+
+  let cartId: null | string = null
+
   try {
     const cart = await fetchOrCreateCart({
       userId: user.id,
       errorOnFailure: true
+    })
+
+    cartId = cart.id
+    await db.order.deleteMany({
+      where: {
+        clerkId: user.id,
+        isPaid: false
+      }
     })
 
     const order = await db.order.create({
@@ -575,15 +587,11 @@ export const createOrderAction = async (
       }
     })
 
-    await db.cart.delete({
-      where: {
-        id: cart.id
-      }
-    })
+    orderId = order.id
   } catch (error) {
     return renderError(error)
   }
-  redirect('/orders')
+  redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`)
 }
 
 export const removeCartItemAction = async (
@@ -647,4 +655,35 @@ export const updateCartItemAction = async ({
   } catch (error) {
     return renderError(error)
   }
+}
+
+export const fetchUserOrders = async () => {
+  const user = await getAuthUser()
+
+  const orders = await db.order.findMany({
+    where: {
+      clerkId: user.id,
+      isPaid: true
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return orders
+}
+
+export const fetchAdminOrders = async () => {
+  const user = await getAdminUser()
+
+  const orders = await db.order.findMany({
+    where: {
+      isPaid: true
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return orders
 }

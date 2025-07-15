@@ -28,20 +28,22 @@ const ReviewsPage = async () => {
     <>
       <SectionTitle text="Your Reviews" />
       <section className="grid md:grid-cols-2 gap-8 mt-4 ">
-        {reviewList.map(({ comment, rating, id, product: { name, image } }) => {
-          const reviewInfo = {
-            comment,
-            rating,
-            name,
-            image
-          }
+        {reviewList.map(
+          ({ comment, rating, id, product: { name, imageUrl } }) => {
+            const reviewInfo = {
+              comment,
+              rating,
+              name,
+              imageUrl
+            }
 
-          return (
-            <ReviewCard key={id} reviewInfo={reviewInfo}>
-              <DeleteReviewButton reviewId={id} />
-            </ReviewCard>
-          )
-        })}
+            return (
+              <ReviewCard key={id} reviewInfo={reviewInfo}>
+                <DeleteReviewButton reviewId={id} />
+              </ReviewCard>
+            )
+          }
+        )}
       </section>
     </>
   )

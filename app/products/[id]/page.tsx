@@ -22,7 +22,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
 
   const product = await fetchSingleProduct(id)
 
-  const { name, image, company, description, price } = product
+  const { name, imageUrl, company, description, price } = product
 
   const formattedPrice = formatCurrency(price)
 
@@ -39,7 +39,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
             fill
             priority
             sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw,33vw"
-            src={image}
+            src={imageUrl}
           />
         </div>
         <div>

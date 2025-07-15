@@ -19,7 +19,7 @@ const ProductReviews = async ({ productId }: ProductReviewsProps) => {
             const reviewInfo = {
               comment,
               rating,
-              image: authorImageUrl,
+              imageUrl: authorImageUrl,
               name: authorName
             }
 

@@ -20,7 +20,7 @@ const EditProductPage = async ({ params }: EditProductPageProps) => {
 
   const product = await fetchAdminProductDetails(id)
 
-  const { name, company, description, featured, price, image } = product
+  const { name, company, description, featured, price, imageUrl } = product
 
   return (
     <section>
@@ -28,12 +28,12 @@ const EditProductPage = async ({ params }: EditProductPageProps) => {
       <div className="border p-8 rounded-md">
         <ImageInputContainer
           action={updateProductImage}
-          image={image}
+          imageUrl={imageUrl}
           name={name}
           text="update image"
         >
           <input name="id" type="hidden" value={id} />
-          <input name="url" type="hidden" value={image} />
+          <input name="url" type="hidden" value={imageUrl} />
         </ImageInputContainer>
         <FormContainer action={updateProduct}>
           <div className="grid gap-4 md:grid-cols-2 my-4">

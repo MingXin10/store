@@ -105,7 +105,7 @@ export const createProduct: ActionFunction = async (prevState, formData) => {
     await db.product.create({
       data: {
         ...validatedFields,
-        image: imagePath,
+        imageUrl: imagePath,
         clerkId: user.id
       }
     })
@@ -127,7 +127,7 @@ export const deleteProductAction = async (prevState: { productId: string }) => {
       }
     })
 
-    await deleteImage(product.image)
+    await deleteImage(product.imageUrl)
 
     revalidatePath('/admin/products')
 
@@ -198,7 +198,7 @@ export const updateProductImage = async (
         id: productId
       },
       data: {
-        image: newImagePath
+        imageUrl: newImagePath
       }
     })
     revalidatePath(`/admin/products/${productId}/edit`)
@@ -346,7 +346,7 @@ export const fetchProductReviewsByUser = async () => {
       comment: true,
       product: {
         select: {
-          image: true,
+          imageUrl: true,
           name: true
         }
       }
@@ -393,11 +393,11 @@ export const fetchCartItems = async () => {
       clerkId: userId ?? ''
     },
     select: {
-      numItemsInCart: true
+      totalItemCounts: true
     }
   })
 
-  return cart?.numItemsInCart || 0
+  return cart?.totalItemCounts || 0
 }
 
 const fetchProduct = async (productId: string) => {
@@ -415,7 +415,7 @@ const fetchProduct = async (productId: string) => {
 }
 
 const includeProductClause = {
-  cartItems: {
+  cartItemList: {
     include: {
       product: true
     }
@@ -465,20 +465,20 @@ export const updateCart = async (cart: Cart) => {
     }
   })
 
-  let numItemsInCart = 0
+  let totalItemCounts = 0
 
-  let cartTotal = 0
+  let subTotal = 0
 
   for (const item of cartItemList) {
-    numItemsInCart += item.amount
-    cartTotal += item.amount * item.product.price
+    totalItemCounts += item.amount
+    subTotal += item.amount * item.product.price
   }
 
-  const tax = cart.taxRate * cartTotal
+  const tax = cart.taxRate * subTotal
 
-  const shipping = cartTotal ? cart.shipping : 0
+  const shipping = subTotal ? cart.shipping : 0
 
-  const orderTotal = cartTotal + tax + shipping
+  const orderTotal = subTotal + tax + shipping
 
   const currentCart = await db.cart.update({
     where: {
@@ -486,8 +486,8 @@ export const updateCart = async (cart: Cart) => {
     },
 
     data: {
-      numItemsInCart,
-      cartTotal,
+      totalItemCounts,
+      subTotal,
       tax,
       orderTotal
     },
@@ -579,7 +579,7 @@ export const createOrderAction = async (
     const order = await db.order.create({
       data: {
         clerkId: user.id,
-        products: cart.numItemsInCart,
+        productCounts: cart.totalItemCounts,
         orderTotal: cart.orderTotal,
         tax: cart.tax,
         shipping: cart.shipping,

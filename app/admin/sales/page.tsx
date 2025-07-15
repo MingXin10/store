@@ -32,10 +32,18 @@ async function SalesPage() {
         </TableHeader>
         <TableBody>
           {orderList.map(
-            ({ id, products, orderTotal, tax, shipping, createdAt, email }) => (
+            ({
+              id,
+              productCounts,
+              orderTotal,
+              tax,
+              shipping,
+              createdAt,
+              email
+            }) => (
               <TableRow key={id}>
                 <TableCell>{email}</TableCell>
-                <TableCell>{products}</TableCell>
+                <TableCell>{productCounts}</TableCell>
                 <TableCell>{formatCurrency(orderTotal)}</TableCell>
                 <TableCell>{formatCurrency(tax)}</TableCell>
                 <TableCell>{formatCurrency(shipping)}</TableCell>

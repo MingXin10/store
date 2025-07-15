@@ -14,13 +14,13 @@ interface ProductsGridProps {
 const ProductsGrid = ({ productList }: ProductsGridProps) => (
   <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     {productList.map((product) => {
-      const { name, price, image, id: productId } = product
+      const { name, price, imageUrl, id } = product
 
       const dollarsAmount = formatCurrency(price)
 
       return (
-        <article key={productId} className="group relative">
-          <Link href={`/products/${productId}`}>
+        <article key={id} className="group relative">
+          <Link href={`/products/${id}`}>
             <Card className="transform group-hover:shadow-xl transition-shadow duration-500">
               <CardContent className="p-4">
                 <div className="relative h-64 md:h-48 rounded overflow-hidden">
@@ -30,7 +30,7 @@ const ProductsGrid = ({ productList }: ProductsGridProps) => (
                     fill
                     priority
                     sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
-                    src={image}
+                    src={imageUrl}
                   />
                 </div>
                 <div className="mt-4 text-center">
@@ -41,7 +41,7 @@ const ProductsGrid = ({ productList }: ProductsGridProps) => (
             </Card>
           </Link>
           <div className="absolute top-7 right-7 z-5">
-            <FavoriteToggleButton productId={productId} />
+            <FavoriteToggleButton productId={id} />
           </div>
         </article>
       )

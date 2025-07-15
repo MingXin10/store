@@ -23,13 +23,13 @@ const CartItemsList = ({ cartItemList }: CartItemsListProps) => (
       ({
         id,
         amount,
-        product: { id: productId, image, name, company, price }
+        product: { id: productId, imageUrl, name, company, price }
       }) => (
         <Card
           key={id}
           className="flex flex-col gap-y-4 md:flex-row flex-wrap p-6 mb-8 gap-x-4"
         >
-          <ImageColumn image={image} name={name} />
+          <ImageColumn imageUrl={imageUrl} name={name} />
           <ProductInfoColumn
             company={company}
             name={name}

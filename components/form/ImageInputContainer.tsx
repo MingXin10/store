@@ -11,14 +11,14 @@ import ImageInput from './ImageInput'
 import type { ActionFunction } from '@/utils/types'
 
 interface ImageInputContainerProps {
-  image: string
+  imageUrl: string
   name: string
   action: ActionFunction
   text: string
 }
 
 const ImageInputContainer = ({
-  image,
+  imageUrl,
   name,
   action,
   text,
@@ -32,7 +32,7 @@ const ImageInputContainer = ({
         alt={name}
         className="rounded-md object-cover mb-4 w-[200px] h-[200px]"
         height={200}
-        src={image}
+        src={imageUrl}
         width={200}
       />
 

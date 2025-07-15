@@ -11,12 +11,12 @@ interface ReviewCardProps {
     comment: string
     rating: number
     name: string
-    image: string
+    imageUrl: string
   }
 }
 
 const ReviewCard = ({
-  reviewInfo: { name, image, rating, comment },
+  reviewInfo: { name, imageUrl, rating, comment },
   children
 }: PropsWithChildren<ReviewCardProps>) => (
   <Card className="relative p-6">
@@ -26,7 +26,7 @@ const ReviewCard = ({
           alt={name}
           className="w-12 h-12 rounded-full object-cover"
           height={48}
-          src={image}
+          src={imageUrl}
           width={48}
         />
         <div className="ml-4">

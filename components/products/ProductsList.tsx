@@ -13,7 +13,7 @@ interface ProductsListProps {
 
 const ProductsList = ({ productList }: ProductsListProps) => (
   <div className="mt-12 grid gap-y-8">
-    {productList.map(({ id, name, price, image, company }) => {
+    {productList.map(({ id, name, price, imageUrl, company }) => {
       const formattedPrice = formatCurrency(price)
 
       return (
@@ -28,7 +28,7 @@ const ProductsList = ({ productList }: ProductsListProps) => (
                     fill
                     priority
                     sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw,33vw"
-                    src={image}
+                    src={imageUrl}
                   />
                 </div>
                 <div>

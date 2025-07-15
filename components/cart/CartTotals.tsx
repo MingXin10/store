@@ -12,11 +12,11 @@ interface CartTotalsProps {
 }
 
 const CartTotals = ({
-  cart: { cartTotal, shipping, tax, orderTotal }
+  cart: { subTotal, shipping, tax, orderTotal }
 }: CartTotalsProps) => (
   <div>
     <Card className="p-8 ">
-      <CartTotalRow amount={cartTotal} label="Subtotal" />
+      <CartTotalRow amount={subTotal} label="Subtotal" />
       <CartTotalRow amount={shipping} label="Shipping" />
       <CartTotalRow amount={tax} label="Tax" />
       <CardTitle className="mt-8">

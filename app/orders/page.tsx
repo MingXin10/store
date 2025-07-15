@@ -34,9 +34,9 @@ const OrdersPage = async () => {
           </TableHeader>
           <TableBody>
             {orderList.map(
-              ({ id, products, orderTotal, tax, shipping, createdAt }) => (
+              ({ id, productCounts, orderTotal, tax, shipping, createdAt }) => (
                 <TableRow key={id}>
-                  <TableCell>{products}</TableCell>
+                  <TableCell>{productCounts}</TableCell>
                   <TableCell>{formatCurrency(orderTotal)}</TableCell>
                   <TableCell>{formatCurrency(tax)}</TableCell>
                   <TableCell>{formatCurrency(shipping)}</TableCell>

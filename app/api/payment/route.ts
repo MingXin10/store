@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
       id: cartId
     },
     include: {
-      cartItems: {
+      cartItemList: {
         include: {
           product: true
         }
@@ -39,17 +39,19 @@ export const POST = async (req: NextRequest) => {
   }
 
   const lineItemList = [
-    ...cart.cartItems.map((cartItem) => ({
-      quantity: cartItem.amount,
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: cartItem.product.name,
-          images: [cartItem.product.image]
-        },
-        unit_amount: cartItem.product.price * 100 // price in cents
-      }
-    })),
+    ...cart.cartItemList.map(
+      ({ amount, product: { name, imageUrl, price } }) => ({
+        quantity: amount,
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name,
+            images: [imageUrl]
+          },
+          unit_amount: price * 100
+        }
+      })
+    ),
     {
       quantity: 1,
       price_data: {

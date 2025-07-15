@@ -5,8 +5,9 @@ import { toast } from 'sonner'
 
 import { SubmitButton } from '../../form/Buttons'
 import FormContainer from '../../form/FormContainer'
-import SelectProductAmount from '../../single-product/SelectProductAmount'
-import { Mode } from '../../single-product/SelectProductAmount'
+import SelectAmount, {
+  SelectAmountProps
+} from '../../single-product/SelectAmount'
 
 import { removeCartItemAction, updateCartItemAction } from '@/utils/dbActions'
 
@@ -20,7 +21,7 @@ const ProductAmountColumn = ({ quantity, id }: ProductAmountColumnProps) => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleAmountChange = async (value: number) => {
+  const handleAmountChange: SelectAmountProps['onChange'] = async (value) => {
     setIsLoading(true)
     toast('Calculating...')
 
@@ -36,10 +37,11 @@ const ProductAmountColumn = ({ quantity, id }: ProductAmountColumnProps) => {
 
   return (
     <div className="md:ml-8">
-      <SelectProductAmount
+      <SelectAmount
         amount={amount}
-        isLoading={isLoading}
-        mode={Mode.CartItem}
+        disabled={isLoading}
+        maxAmount={amount + 10}
+        width="w-[100px]"
         onChange={handleAmountChange}
       />
       <FormContainer action={removeCartItemAction}>

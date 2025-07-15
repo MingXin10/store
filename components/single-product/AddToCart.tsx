@@ -6,10 +6,7 @@ import { useAuth } from '@clerk/nextjs'
 import { SubmitButton } from '../form/Buttons'
 import { ProductSignInButton } from '../form/Buttons'
 import FormContainer from '../form/FormContainer'
-import SelectProductAmount, {
-  SelectProductAmountProps
-} from './SelectProductAmount'
-import { Mode } from './SelectProductAmount'
+import SelectAmount, { SelectAmountProps } from './SelectAmount'
 
 import { addToCartAction } from '@/utils/dbActions'
 
@@ -22,19 +19,13 @@ const AddToCart = ({ productId }: AddToCartProps) => {
 
   const [amount, setAmount] = useState(1)
 
-  const handleCartAmountChange: SelectProductAmountProps['onChange'] = (
-    value
-  ) => {
+  const handleCartAmountChange: SelectAmountProps['onChange'] = (value) => {
     setAmount(value)
   }
 
   return (
     <div className="mt-4">
-      <SelectProductAmount
-        amount={amount}
-        mode={Mode.SingleProduct}
-        onChange={handleCartAmountChange}
-      />
+      <SelectAmount amount={amount} onChange={handleCartAmountChange} />
       {userId ? (
         <FormContainer action={addToCartAction}>
           <input name="productId" type="hidden" value={productId} />

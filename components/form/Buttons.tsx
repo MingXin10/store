@@ -7,7 +7,7 @@ import { SignInButton } from '@clerk/nextjs'
 import { ReloadIcon } from '@radix-ui/react-icons'
 
 import { Button } from '@/components/ui/Button'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/cn'
 
 interface SubmitButtonProps {
   className?: string

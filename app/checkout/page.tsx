@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider
@@ -9,11 +9,13 @@ import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
 
+import LoadingContainer from '@/components/global/LoadingContainer'
+
 const STRIPE_PROMISE = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 )
 
-const CheckoutPage = () => {
+const CheckoutContent = () => {
   const searchParams = useSearchParams()
 
   const orderId = searchParams.get('orderId')
@@ -32,12 +34,18 @@ const CheckoutPage = () => {
   const options = { fetchClientSecret }
 
   return (
-    <div id="checkout">
-      <EmbeddedCheckoutProvider options={options} stripe={STRIPE_PROMISE}>
-        <EmbeddedCheckout />
-      </EmbeddedCheckoutProvider>
-    </div>
+    <EmbeddedCheckoutProvider options={options} stripe={STRIPE_PROMISE}>
+      <EmbeddedCheckout />
+    </EmbeddedCheckoutProvider>
   )
 }
+
+const CheckoutPage = () => (
+  <div id="checkout">
+    <Suspense fallback={<LoadingContainer />}>
+      <CheckoutContent />
+    </Suspense>
+  </div>
+)
 
 export default CheckoutPage

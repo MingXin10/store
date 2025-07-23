@@ -5,18 +5,23 @@ const isPublicRoute = createRouteMatcher(['/', '/products(.*)', '/about'])
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
-export default clerkMiddleware((auth, req) => {
-  const isAdminUser = auth().userId === process.env.ADMIN_USER_ID
+export default clerkMiddleware(async (auth, req) => {
+  const { userId } = await auth()
+
+  const isAdminUser = userId === process.env.ADMIN_USER_ID
 
   if (isAdminRoute(req) && !isAdminUser) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
   if (!isPublicRoute(req)) {
-    auth().protect()
+    await auth.protect()
   }
 })
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)']
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/(api|trpc)(.*)'
+  ]
 }

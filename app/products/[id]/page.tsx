@@ -16,7 +16,7 @@ interface SingleProductPageProps {
 }
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   const { id } = await params
 

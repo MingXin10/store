@@ -12,7 +12,7 @@ interface FavoriteToggleButtonProps {
 const FavoriteToggleButton = async ({
   productId
 }: FavoriteToggleButtonProps) => {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) return <CardSignInButton />
 

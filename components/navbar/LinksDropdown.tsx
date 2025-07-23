@@ -16,8 +16,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/DropdownMenu'
 
-const LinksDropdown = () => {
-  const { userId } = auth()
+const LinksDropdown = async () => {
+  const { userId } = await auth()
 
   const isAdmin = userId === process.env.ADMIN_USER_ID
 

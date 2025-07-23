@@ -7,7 +7,7 @@ import SectionTitle from '@/components/global/SectionTitle'
 import { fetchOrCreateCart, updateCart } from '@/utils/dbActions'
 
 const CartPage = async () => {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (!userId) redirect('/')
 

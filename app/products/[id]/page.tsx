@@ -44,10 +44,10 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
         </div>
         <div>
           <div className="flex gap-x-8 items-center">
-            <h1 className="capitalize text-3xl font-bold">{name}</h1>
+            <h1 className="text-3xl font-bold">{name}</h1>
             <div className="flex items-center gap-x-2">
               <FavoriteToggleButton productId={id} />
-              <ShareButton name={product.name} productId={id} />
+              <ShareButton name={name} productId={id} />
             </div>
           </div>
           <ProductRating productId={id} />

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider
@@ -20,15 +20,14 @@ const CheckoutPage = () => {
 
   const cartId = searchParams.get('cartId')
 
-  const fetchClientSecret = useCallback(async () => {
-    // Create a Checkout Session
+  const fetchClientSecret = async () => {
     const response = await axios.post('/api/payment', {
       orderId,
       cartId
     })
 
     return response.data.clientSecret
-  }, [])
+  }
 
   const options = { fetchClientSecret }
 

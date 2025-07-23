@@ -30,7 +30,7 @@ const ReviewCard = ({
           width={48}
         />
         <div className="ml-4">
-          <h3 className="text-sm font-bold capitalize mb-1">{name}</h3>
+          <h3 className="text-sm font-bold mb-1">{name}</h3>
           <Rating rating={rating} />
         </div>
       </div>

@@ -1,6 +1,1 @@
-export const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date)
+export const formatDate = (date: Date) => date.toLocaleDateString('zh-TW')

@@ -30,7 +30,7 @@ const AddToCart = ({ productId }: AddToCartProps) => {
         <FormContainer action={addToCartAction}>
           <input name="productId" type="hidden" value={productId} />
           <input name="amount" type="hidden" value={amount} />
-          <SubmitButton className="mt-8" size="default" text="add to cart" />
+          <SubmitButton className="mt-8" size="default" text="加入購物車" />
         </FormContainer>
       ) : (
         <ProductSignInButton />

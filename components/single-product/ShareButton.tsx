@@ -2,8 +2,8 @@
 
 import { LuShare2 } from 'react-icons/lu'
 import {
-  EmailIcon,
-  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
   TwitterIcon,
@@ -46,9 +46,9 @@ const ShareButton = ({ productId, name }: ShareButton) => {
         <LinkedinShareButton title={name} url={shareLink}>
           <LinkedinIcon round size={32} />
         </LinkedinShareButton>
-        <EmailShareButton subject={name} url={shareLink}>
-          <EmailIcon round size={32} />
-        </EmailShareButton>
+        <FacebookShareButton title={name} url={shareLink}>
+          <FacebookIcon round size={32} />
+        </FacebookShareButton>
       </PopoverContent>
     </Popover>
   )

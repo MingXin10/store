@@ -35,7 +35,6 @@ const ImageInputContainer = ({
         src={imageUrl}
         width={200}
       />
-
       <Button
         size="sm"
         variant="outline"

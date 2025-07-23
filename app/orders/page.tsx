@@ -15,21 +15,18 @@ import { formatDate } from '@/utils/formatDate'
 const OrdersPage = async () => {
   const orderList = await fetchUserOrders()
 
-  const orderCounts = orderList.length
-
   return (
     <>
-      <SectionTitle text="Your Orders" />
+      <SectionTitle text="你的訂單" />
       <div>
         <Table>
-          <TableCaption>Total orders : {orderCounts}</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead>Products</TableHead>
-              <TableHead>Order Total</TableHead>
-              <TableHead>Tax</TableHead>
-              <TableHead>Shipping</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>商品</TableHead>
+              <TableHead>總金額</TableHead>
+              <TableHead>稅</TableHead>
+              <TableHead>運費</TableHead>
+              <TableHead>日期</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -45,6 +42,7 @@ const OrdersPage = async () => {
               )
             )}
           </TableBody>
+          <TableCaption>訂單數量: {orderList.length}</TableCaption>
         </Table>
       </div>
     </>

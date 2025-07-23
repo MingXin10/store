@@ -12,8 +12,8 @@ const ProductReviews = async ({ productId }: ProductReviewsProps) => {
 
   return (
     <div className="mt-16">
-      <SectionTitle text="product reviews" />
-      <div className="grid md:grid-cols-2 gap-8 my-8">
+      <SectionTitle text="商品評價" />
+      <div className="grid md:grid-cols-2 gap-8 my-4">
         {reviewList.map(
           ({ comment, rating, authorImageUrl, authorName, id }) => {
             const reviewInfo = {

@@ -15,7 +15,7 @@ import {
 import { deleteProductAction, fetchAdminProducts } from '@/utils/dbActions'
 import { formatCurrency } from '@/utils/formatCurrency'
 
-const DeleteProduct = ({ productId }: { productId: string }) => {
+const DeleteProductButton = ({ productId }: { productId: string }) => {
   const deleteProduct = deleteProductAction.bind(null, { productId })
 
   return (
@@ -28,20 +28,19 @@ const DeleteProduct = ({ productId }: { productId: string }) => {
 const ItemsPage = async () => {
   const productList = await fetchAdminProducts()
 
-  if (productList.length === 0) return <EmptyList />
+  const productCounts = productList.length
+
+  if (productCounts === 0) return <EmptyList />
 
   return (
     <section>
       <Table>
-        <TableCaption className="capitalize">
-          Total products: {productList.length}
-        </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Product Name</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>商品名稱</TableHead>
+            <TableHead>製造商</TableHead>
+            <TableHead>價格</TableHead>
+            <TableHead>編輯與刪除</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -49,7 +48,7 @@ const ItemsPage = async () => {
             <TableRow key={id}>
               <TableCell>
                 <Link
-                  className="underline text-muted-foreground tracking-wide capitalize"
+                  className="underline text-muted-foreground tracking-wide"
                   href={`/products/${id}`}
                 >
                   {name}
@@ -59,13 +58,14 @@ const ItemsPage = async () => {
               <TableCell>{formatCurrency(price)}</TableCell>
               <TableCell className="flex items-center gap-x-2">
                 <Link href={`/admin/products/${id}/edit`}>
-                  <IconButton actionType="edit"></IconButton>
+                  <IconButton actionType="edit" />
                 </Link>
-                <DeleteProduct productId={id} />
+                <DeleteProductButton productId={id} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
+        <TableCaption>商品總數: {productCounts}</TableCaption>
       </Table>
     </section>
   )

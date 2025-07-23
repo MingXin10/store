@@ -11,23 +11,20 @@ import { fetchAdminOrders } from '@/utils/dbActions'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { formatDate } from '@/utils/formatDate'
 
-async function SalesPage() {
+const SalesPage = async () => {
   const orderList = await fetchAdminOrders()
-
-  const orderCounts = orderList.length
 
   return (
     <div>
       <Table>
-        <TableCaption>Total orders : {orderCounts}</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Email</TableHead>
-            <TableHead>Products</TableHead>
-            <TableHead>Order Total</TableHead>
-            <TableHead>Tax</TableHead>
-            <TableHead>Shipping</TableHead>
-            <TableHead>Date</TableHead>
+            <TableHead>信箱</TableHead>
+            <TableHead>商品數量</TableHead>
+            <TableHead>總金額</TableHead>
+            <TableHead>稅</TableHead>
+            <TableHead>運費</TableHead>
+            <TableHead>日期</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -52,6 +49,7 @@ async function SalesPage() {
             )
           )}
         </TableBody>
+        <TableCaption>訂單數量: {orderList.length}</TableCaption>
       </Table>
     </div>
   )

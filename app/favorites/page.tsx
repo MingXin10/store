@@ -6,14 +6,16 @@ const FavoritesPage = async () => {
   const favoriteList = await fetchUserFavoriteList()
 
   if (favoriteList.length === 0) {
-    return <SectionTitle text="You have no favorite yet." />
+    return <SectionTitle text="尚未有加入追蹤的商品" />
   }
 
+  const productList = favoriteList.map(({ product }) => product)
+
   return (
-    <div>
-      <SectionTitle text="Favorites" />
-      <ProductsGrid productList={favoriteList.map(({ product }) => product)} />
-    </div>
+    <>
+      <SectionTitle text="追蹤清單" />
+      <ProductsGrid productList={productList} />
+    </>
   )
 }
 

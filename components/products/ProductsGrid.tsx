@@ -13,9 +13,7 @@ interface ProductsGridProps {
 
 const ProductsGrid = ({ productList }: ProductsGridProps) => (
   <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-    {productList.map((product) => {
-      const { name, price, imageUrl, id } = product
-
+    {productList.map(({ name, price, imageUrl, id }) => {
       const dollarsAmount = formatCurrency(price)
 
       return (
@@ -34,8 +32,8 @@ const ProductsGrid = ({ productList }: ProductsGridProps) => (
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <h2 className="text-lg  capitalize">{name}</h2>
-                  <p className="text-muted-foreground  mt-2">{dollarsAmount}</p>
+                  <h2 className="text-lg">{name}</h2>
+                  <p className="text-muted-foreground mt-2">{dollarsAmount}</p>
                 </div>
               </CardContent>
             </Card>

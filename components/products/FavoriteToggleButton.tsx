@@ -1,10 +1,8 @@
-import { FaHeart } from 'react-icons/fa'
 import { auth } from '@clerk/nextjs/server'
 
 import { CardSignInButton } from '../form/Buttons'
 import FavoriteToggleForm from './FavoriteToggleForm'
 
-import { Button } from '@/components/ui/Button'
 import { fetchFavoriteId } from '@/utils/dbActions'
 
 interface FavoriteToggleButtonProps {

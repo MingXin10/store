@@ -1,30 +1,27 @@
 import { Input } from '../ui/Input'
 import { Label } from '../ui/Label'
 
-type FormInputProps = {
+interface FormInputProps {
   name: string
   type: string
   label?: string
   defaultValue?: string
-  placeholder?: string
 }
 
 const FormInput = ({
   label,
   name,
   type,
-  defaultValue,
-  placeholder
+  defaultValue = ''
 }: FormInputProps) => (
   <div className="mb-2">
-    <Label className="capitalize" htmlFor={name}>
+    <Label className="mb-2" htmlFor={name}>
       {label || name}
     </Label>
     <Input
       defaultValue={defaultValue}
       id={name}
       name={name}
-      placeholder={placeholder}
       required
       type={type}
     />

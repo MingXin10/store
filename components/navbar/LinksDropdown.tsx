@@ -33,13 +33,13 @@ const LinksDropdown = () => {
         <SignedOut>
           <DropdownMenuItem>
             <SignInButton mode="modal">
-              <button className="w-full text-left">Login</button>
+              <button className="w-full text-left">登入</button>
             </SignInButton>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignUpButton mode="modal">
-              <button className="w-full text-left">Register</button>
+              <button className="w-full text-left">註冊</button>
             </SignUpButton>
           </DropdownMenuItem>
         </SignedOut>
@@ -49,7 +49,7 @@ const LinksDropdown = () => {
 
             return (
               <DropdownMenuItem key={label}>
-                <Link className="capitalize w-full" href={href}>
+                <Link className="w-full" href={href}>
                   {label}
                 </Link>
               </DropdownMenuItem>

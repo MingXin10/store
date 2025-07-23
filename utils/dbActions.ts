@@ -48,6 +48,14 @@ export const fetchSingleProduct = async (productId: string) => {
   return product
 }
 
+export const getAdminUser = async () => {
+  const user = await getAuthUser()
+
+  if (user.id !== process.env.ADMIN_USER_ID) redirect('/')
+
+  return user
+}
+
 export const fetchAdminProducts = async () => {
   await getAdminUser()
 
@@ -66,14 +74,6 @@ const getAuthUser = async () => {
   if (!user) {
     throw new Error('You must be logged in to access this route')
   }
-
-  return user
-}
-
-export const getAdminUser = async () => {
-  const user = await getAuthUser()
-
-  if (user.id !== process.env.ADMIN_USER_ID) redirect('/')
 
   return user
 }
@@ -131,7 +131,7 @@ export const deleteProductAction = async (prevState: { productId: string }) => {
 
     revalidatePath('/admin/products')
 
-    return { message: 'product removed' }
+    return { message: '已刪除商品' }
   } catch (error) {
     return renderError(error)
   }
@@ -170,7 +170,7 @@ export const updateProduct = async (prevState: unknown, formData: FormData) => {
     })
     revalidatePath(`/admin/products/${productId}/edit`)
 
-    return { message: 'Product updated successfully' }
+    return { message: '商品更新成功' }
   } catch (error) {
     return renderError(error)
   }
@@ -203,7 +203,7 @@ export const updateProductImage = async (
     })
     revalidatePath(`/admin/products/${productId}/edit`)
 
-    return { message: 'Product Image updated successfully' }
+    return { message: '商品圖片更新成功' }
   } catch (error) {
     return renderError(error)
   }
@@ -253,7 +253,7 @@ export const toggleFavoriteAction = async (prevState: {
     revalidatePath(pathname)
 
     return {
-      message: favoriteId ? 'Removed from Favorites' : 'Added to Favorites'
+      message: favoriteId ? '已從追蹤清單移除' : '已加入追蹤清單'
     }
   } catch (error) {
     return renderError(error)
@@ -294,7 +294,7 @@ export const createReviewAction = async (
     })
     revalidatePath(`/products/${validatedFields.productId}`)
 
-    return { message: 'Review submitted successfully' }
+    return { message: '感謝你的評論！' }
   } catch (error) {
     return renderError(error)
   }
@@ -371,14 +371,14 @@ export const deleteReviewAction = async (prevState: { reviewId: string }) => {
 
     revalidatePath('/reviews')
 
-    return { message: 'Review deleted successfully' }
+    return { message: '已刪除評價' }
   } catch (error) {
     return renderError(error)
   }
 }
 
 export const findExistingReview = async (userId: string, productId: string) =>
-  db.review.findFirst({
+  await db.review.findFirst({
     where: {
       clerkId: userId,
       productId
@@ -458,7 +458,7 @@ export const updateCart = async (cart: Cart) => {
       cartId: cart.id
     },
     include: {
-      product: true // Include the related product
+      product: true
     },
     orderBy: {
       createdAt: 'asc'
@@ -594,15 +594,10 @@ export const createOrderAction = async (
   redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`)
 }
 
-export const removeCartItemAction = async (
-  prevState: unknown,
-  formData: FormData
-) => {
+export const removeCartItemAction = async (cartItemId: string) => {
   const user = await getAuthUser()
 
   try {
-    const cartItemId = formData.get('id') as string
-
     const cart = await fetchOrCreateCart({
       userId: user.id,
       errorOnFailure: true
@@ -618,13 +613,13 @@ export const removeCartItemAction = async (
     await updateCart(cart)
     revalidatePath('/cart')
 
-    return { message: 'Item removed from cart' }
+    return { message: '已移除商品' }
   } catch (error) {
     return renderError(error)
   }
 }
 
-export const updateCartItemAction = async ({
+export const updateCartItem = async ({
   amount,
   cartItemId
 }: {
@@ -651,7 +646,7 @@ export const updateCartItemAction = async ({
     await updateCart(cart)
     revalidatePath('/cart')
 
-    return { message: 'cart updated' }
+    return { message: '已更新數量' }
   } catch (error) {
     return renderError(error)
   }

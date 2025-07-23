@@ -16,15 +16,15 @@ const CartTotals = ({
 }: CartTotalsProps) => (
   <div>
     <Card className="p-8 ">
-      <CartTotalRow amount={subTotal} label="Subtotal" />
-      <CartTotalRow amount={shipping} label="Shipping" />
-      <CartTotalRow amount={tax} label="Tax" />
+      <CartTotalRow amount={subTotal} label="小計" />
+      <CartTotalRow amount={shipping} label="運費" />
+      <CartTotalRow amount={tax} label="稅" />
       <CardTitle className="mt-8">
-        <CartTotalRow amount={orderTotal} isLastRow label="Order Total" />
+        <CartTotalRow amount={orderTotal} isLastRow label="總金額" />
       </CardTitle>
     </Card>
     <FormContainer action={createOrderAction}>
-      <SubmitButton className="w-full mt-8" text="Place Order" />
+      <SubmitButton className="w-full mt-8" text="送出訂單" />
     </FormContainer>
   </div>
 )

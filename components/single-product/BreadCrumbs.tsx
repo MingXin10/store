@@ -15,21 +15,19 @@ const BreadCrumbs = ({ name }: BreadCrumbsProps) => (
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink className="capitalize text-lg" href="/">
+        <BreadcrumbLink className="text-lg" href="/">
           首頁
         </BreadcrumbLink>
       </BreadcrumbItem>
-
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink className="capitalize text-lg" href="/products">
+        <BreadcrumbLink className="text-lg" href="/products">
           商品
         </BreadcrumbLink>
       </BreadcrumbItem>
-
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbPage className="capitalize text-lg">{name}</BreadcrumbPage>
+        <BreadcrumbPage className="text-lg">{name}</BreadcrumbPage>
       </BreadcrumbItem>
     </BreadcrumbList>
   </Breadcrumb>

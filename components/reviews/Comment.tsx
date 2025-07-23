@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import { Button } from '@/components/ui/Button'
 
+const COMMENT_LIMIT = 130
+
 interface CommentProps {
   comment: string
 }
@@ -11,10 +13,12 @@ interface CommentProps {
 const Comment = ({ comment }: CommentProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const isLongComment = comment.length > 130
+  const isLongComment = comment.length > COMMENT_LIMIT
 
   const visibleText =
-    isLongComment && !isExpanded ? `${comment.slice(0, 130)}...` : comment
+    isLongComment && !isExpanded
+      ? `${comment.slice(0, COMMENT_LIMIT)}...`
+      : comment
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded)
@@ -29,7 +33,7 @@ const Comment = ({ comment }: CommentProps) => {
           variant="link"
           onClick={toggleExpanded}
         >
-          {isExpanded ? 'Show Less' : 'Show More'}
+          {isExpanded ? '顯示較少' : '顯示更多'}
         </Button>
       )}
     </div>

@@ -15,13 +15,13 @@ const RATING_LIST = Array.from({ length: 5 }, (_, i) => {
 
 interface RatingInputProps {
   name: string
-  labelText?: string
+  label?: string
 }
 
-const RatingInput = ({ name, labelText }: RatingInputProps) => (
+const RatingInput = ({ name, label }: RatingInputProps) => (
   <div className="mb-2 max-w-xs">
-    <Label className="capitalize" htmlFor={name}>
-      {labelText || name}
+    <Label className="mb-2" htmlFor={name}>
+      {label || name}
     </Label>
     <Select defaultValue={RATING_LIST[0]} name={name} required>
       <SelectTrigger className="w-full">

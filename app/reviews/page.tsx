@@ -21,12 +21,12 @@ const ReviewsPage = async () => {
   const reviewList = await fetchProductReviewsByUser()
 
   if (reviewList.length === 0) {
-    return <SectionTitle text="you have no reviews yet" />
+    return <SectionTitle text="尚無評價" />
   }
 
   return (
     <>
-      <SectionTitle text="Your Reviews" />
+      <SectionTitle text="所有評價" />
       <section className="grid md:grid-cols-2 gap-8 mt-4 ">
         {reviewList.map(
           ({ comment, rating, id, product: { name, imageUrl } }) => {

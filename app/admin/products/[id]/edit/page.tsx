@@ -24,13 +24,13 @@ const EditProductPage = async ({ params }: EditProductPageProps) => {
 
   return (
     <section>
-      <h1 className="text-2xl font-semibold mb-8 capitalize">update product</h1>
+      <h1 className="text-2xl font-semibold mb-8">更新商品</h1>
       <div className="border p-8 rounded-md">
         <ImageInputContainer
           action={updateProductImage}
           imageUrl={imageUrl}
           name={name}
-          text="update image"
+          text="上傳圖片"
         >
           <input name="id" type="hidden" value={id} />
           <input name="url" type="hidden" value={imageUrl} />
@@ -40,32 +40,31 @@ const EditProductPage = async ({ params }: EditProductPageProps) => {
             <input name="id" type="hidden" value={id} />
             <FormInput
               defaultValue={name}
-              label="product name"
+              label="商品名稱"
               name="name"
               type="text"
             />
             <FormInput
               defaultValue={company}
-              label="company"
+              label="製造商"
               name="company"
               type="text"
             />
-
             <PriceInput defaultValue={price} />
           </div>
           <TextAreaInput
             defaultValue={description}
-            labelText="product description"
+            label="商品描述"
             name="description"
           />
           <div className="mt-6">
             <CheckboxInput
-              defaultChecked={featured}
-              label="featured"
+              checked={featured}
+              label="精選商品"
               name="featured"
             />
           </div>
-          <SubmitButton className="mt-8" text="update product" />
+          <SubmitButton className="mt-8" text="儲存" />
         </FormContainer>
       </div>
     </section>

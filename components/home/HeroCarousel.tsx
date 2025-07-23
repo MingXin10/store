@@ -13,13 +13,13 @@ import hero2 from '@/public/images/hero2.jpg'
 import hero3 from '@/public/images/hero3.jpg'
 import hero4 from '@/public/images/hero4.jpg'
 
-const carouselImageList = [hero1, hero2, hero3, hero4]
+const CAROUSEL_IMAGE_LIST = [hero1, hero2, hero3, hero4]
 
 const HeroCarousel = () => (
   <div className="hidden lg:block">
     <Carousel>
       <CarouselContent>
-        {carouselImageList.map((imagePath, index) => (
+        {CAROUSEL_IMAGE_LIST.map((imagePath, index) => (
           <CarouselItem key={index}>
             <Card>
               <CardContent className="p-2">

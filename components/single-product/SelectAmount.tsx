@@ -8,7 +8,6 @@ import {
 
 export interface SelectAmountProps {
   amount: number
-  disabled?: boolean
   maxAmount?: number
   width?: string
   onChange: (value: number) => void
@@ -17,7 +16,6 @@ export interface SelectAmountProps {
 const SelectAmount = ({
   amount,
   maxAmount = 10,
-  disabled = false,
   width = 'w-[150px]',
   onChange
 }: SelectAmountProps) => (
@@ -25,7 +23,6 @@ const SelectAmount = ({
     <h4 className="mb-2">數量：</h4>
     <Select
       defaultValue={amount.toString()}
-      disabled={disabled}
       onValueChange={(value) => onChange(Number(value))}
     >
       <SelectTrigger className={width}>

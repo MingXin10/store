@@ -3,17 +3,17 @@ import { Label } from '../ui/Label'
 
 const NAME = 'price'
 
-type PriceInputProps = {
+interface PriceInputProps {
   defaultValue?: number
 }
 
 const PriceInput = ({ defaultValue }: PriceInputProps) => (
   <div className="mb-2">
-    <Label className="capitalize" htmlFor="price">
-      Price ($)
+    <Label className="mb-2" htmlFor="price">
+      價格 ($)
     </Label>
     <Input
-      defaultValue={defaultValue || 100}
+      defaultValue={defaultValue}
       id={NAME}
       min={0}
       name={NAME}

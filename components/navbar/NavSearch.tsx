@@ -11,9 +11,9 @@ const NavSearch = () => {
 
   const { replace } = useRouter()
 
-  const [searchTerm, setSearch] = useState(
-    searchParams.get('search')?.toString() || ''
-  )
+  const searchParam = searchParams.get('search')?.toString() || ''
+
+  const [searchTerm, setSearch] = useState(searchParam)
 
   const handleSearch = useDebouncedCallback((value: string) => {
     const params = new URLSearchParams(searchParams)
@@ -28,15 +28,13 @@ const NavSearch = () => {
   }, 300)
 
   useEffect(() => {
-    if (!searchParams.get('search')) {
-      setSearch('')
-    }
-  }, [searchParams.get('search')])
+    setSearch(searchParam)
+  }, [searchParam])
 
   return (
     <Input
       className="max-w-xs dark:bg-muted "
-      placeholder="Search Products..."
+      placeholder="搜尋商品..."
       type="search"
       value={searchTerm}
       onChange={(e) => {

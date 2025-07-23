@@ -22,12 +22,8 @@ const SubmitReview = ({ productId }: SubmitReviewProps) => {
 
   return (
     <div>
-      <Button
-        className="capitalize"
-        size="lg"
-        onClick={() => setIsReviewFormVisible((prev) => !prev)}
-      >
-        leave review
+      <Button size="lg" onClick={() => setIsReviewFormVisible((prev) => !prev)}>
+        評價商品
       </Button>
       {isReviewFormVisible && (
         <Card className="p-8 mt-8">
@@ -43,13 +39,9 @@ const SubmitReview = ({ productId }: SubmitReviewProps) => {
               type="hidden"
               value={user?.imageUrl || ''}
             />
-            <RatingInput name="rating" />
-            <TextAreaInput
-              defaultValue="Outstanding product!!!"
-              labelText="feedback"
-              name="comment"
-            />
-            <SubmitButton className="mt-4" />
+            <RatingInput label="評價星等" name="rating" />
+            <TextAreaInput label="評論" name="comment" />
+            <SubmitButton className="mt-4" text="送出評論" />
           </FormContainer>
         </Card>
       )}

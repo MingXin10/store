@@ -32,7 +32,7 @@ const ProductsList = ({ productList }: ProductsListProps) => (
                   />
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold capitalize">{name}</h2>
+                  <h2 className="text-xl font-semibold">{name}</h2>
                   <h4 className="text-muted-foreground">{company}</h4>
                 </div>
                 <p className="text-muted-foreground text-lg md:ml-auto">

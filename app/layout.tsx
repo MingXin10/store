@@ -9,11 +9,11 @@ import './globals.css'
 import Container from '@/components/global/Container'
 import Navbar from '@/components/navbar/NavBar'
 
-const inter = Inter({ subsets: ['latin'] })
+const INTER = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Store app',
-  description: "Joey's Store"
+  title: 'Palette Living',
+  description: '讓每一件家具，成為你生活中的美好片段與記憶。'
 }
 
 const RootLayout = ({
@@ -23,7 +23,7 @@ const RootLayout = ({
 }>) => (
   <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={INTER.className}>
         <Providers>
           <Navbar />
           <Container className="py-20">{children}</Container>

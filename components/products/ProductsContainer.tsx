@@ -20,13 +20,23 @@ const ProductsContainer = async ({ layout, search = '' }: SearchParamProps) => {
 
   const searchTerm = search ? `&search=${search}` : ''
 
+  const renderContent = () => {
+    if (totalProductCounts === 0) {
+      return <h5 className="text-2xl mt-16">抱歉，沒有符合您搜尋的商品…</h5>
+    }
+
+    return layout === 'grid' ? (
+      <ProductsGrid productList={productList} />
+    ) : (
+      <ProductsList productList={productList} />
+    )
+  }
+
   return (
     <>
       <section>
         <div className="flex justify-between items-center">
-          <h4 className="font-medium text-lg">
-            {totalProductCounts} product{totalProductCounts > 1 && 's'}
-          </h4>
+          <h4 className="font-medium text-lg">商品列表</h4>
           <div className="flex gap-x-4">
             <Button
               asChild
@@ -50,15 +60,7 @@ const ProductsContainer = async ({ layout, search = '' }: SearchParamProps) => {
         </div>
         <Separator className="mt-4" />
       </section>
-      <div>
-        {totalProductCounts === 0 ? (
-          <h5 className="text-2xl mt-16">「抱歉，沒有符合您搜尋的商品…」</h5>
-        ) : layout === 'grid' ? (
-          <ProductsGrid productList={productList} />
-        ) : (
-          <ProductsList productList={productList} />
-        )}
-      </div>
+      <div>{renderContent()}</div>
     </>
   )
 }

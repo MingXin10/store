@@ -1,10 +1,10 @@
-'use client'
-
 import { Prisma } from '@prisma/client'
 
 import CurrencyColumn from './columns/CurrencyColumn'
 import ImageColumn from './columns/ImageColumn'
-import ProductAmountColumn from './columns/ProductAmountColumn'
+import ProductAmountColumn, {
+  ProductAmountColumnProps
+} from './columns/ProductAmountColumn'
 import ProductInfoColumn from './columns/ProductInfoColumn'
 
 import { Card } from '@/components/ui/Card'
@@ -13,11 +13,12 @@ type CartItemWithProduct = Prisma.CartItemGetPayload<{
   include: { product: true }
 }>
 
-interface CartItemsListProps {
+export interface CartItemListProps
+  extends Pick<ProductAmountColumnProps, 'startTransition'> {
   cartItemList: CartItemWithProduct[]
 }
 
-const CartItemsList = ({ cartItemList }: CartItemsListProps) => (
+const CartItemList = ({ cartItemList, startTransition }: CartItemListProps) => (
   <div>
     {cartItemList.map(
       ({
@@ -35,7 +36,11 @@ const CartItemsList = ({ cartItemList }: CartItemsListProps) => (
             name={name}
             productId={productId}
           />
-          <ProductAmountColumn id={id} quantity={amount} />
+          <ProductAmountColumn
+            id={id}
+            quantity={amount}
+            startTransition={startTransition}
+          />
           <CurrencyColumn price={price} />
         </Card>
       )
@@ -43,4 +48,4 @@ const CartItemsList = ({ cartItemList }: CartItemsListProps) => (
   </div>
 )
 
-export default CartItemsList
+export default CartItemList

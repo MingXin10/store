@@ -13,9 +13,9 @@ const ProductInfoColumn = ({
 }: ProductInfoColumnProps) => (
   <div className=" sm:w-48">
     <Link href={`/products/${productId}`}>
-      <h3 className="capitalize font-medium hover:underline">{name}</h3>
+      <h3 className="font-medium hover:underline">{name}</h3>
     </Link>
-    <h4 className="mt-2 capitalize text-xs">{company}</h4>
+    <h4 className="mt-2 text-xs">{company}</h4>
   </div>
 )
 

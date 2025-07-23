@@ -7,36 +7,32 @@ import { SignInButton } from '@clerk/nextjs'
 import { ReloadIcon } from '@radix-ui/react-icons'
 
 import { Button } from '@/components/ui/Button'
-import { cn } from '@/utils/cn'
 
 interface SubmitButtonProps {
   className?: string
   text?: string
   size?: 'default' | 'lg' | 'sm'
+  onClick?: () => void
 }
 
 const SubmitButton = ({
-  className = '',
-  text = 'submit',
-  size = 'lg'
+  className,
+  text,
+  size = 'lg',
+  onClick
 }: SubmitButtonProps) => {
   const { pending } = useFormStatus()
 
   return (
     <Button
-      className={cn('capitalize', className)}
+      className={className}
       disabled={pending}
       size={size}
       type="submit"
+      onClick={onClick}
     >
-      {pending ? (
-        <>
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-          Please wait...
-        </>
-      ) : (
-        text
-      )}
+      {pending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+      {text}
     </Button>
   )
 }
@@ -55,9 +51,7 @@ const IconButton = ({ actionType }: ActionType) => {
       case 'delete':
         return <LuTrash2 />
       default:
-        const never: never = actionType
-
-        throw new Error(`Invalid action type: ${never}`)
+        throw new Error('Invalid action type')
     }
   }
 
@@ -96,13 +90,13 @@ const CardSubmitButton = ({ isFavorite }: CardSubmitButton) => {
 
   return (
     <Button
-      className=" p-2 cursor-pointer"
+      className="p-2 cursor-pointer"
       size="icon"
       type="submit"
       variant="outline"
     >
       {pending ? (
-        <ReloadIcon className=" animate-spin" />
+        <ReloadIcon className="animate-spin" />
       ) : isFavorite ? (
         <FaHeart />
       ) : (
@@ -115,7 +109,7 @@ const CardSubmitButton = ({ isFavorite }: CardSubmitButton) => {
 const ProductSignInButton = () => (
   <SignInButton mode="modal">
     <Button className="mt-8" size="default" type="button">
-      Please Sign In
+      登入
     </Button>
   </SignInButton>
 )

@@ -5,18 +5,18 @@ import { Checkbox } from '@/components/ui/Checkbox'
 type CheckboxInputProps = {
   name: string
   label: string
-  defaultChecked?: boolean
+  checked?: boolean
 }
 
 const CheckboxInput = ({
   name,
   label,
-  defaultChecked = false
+  checked = false
 }: CheckboxInputProps) => (
   <div className="flex items-center space-x-2">
-    <Checkbox defaultChecked={defaultChecked} id={name} name={name} />
+    <Checkbox defaultChecked={checked} id={name} name={name} />
     <label
-      className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+      className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       htmlFor={name}
     >
       {label}

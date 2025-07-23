@@ -1,8 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { useEffect } from 'react'
-import { useFormState } from 'react-dom'
+import { useActionState, useEffect } from 'react'
 import { toast } from 'sonner'
 
 import type { ActionFunction } from '@/utils/types'
@@ -15,7 +14,7 @@ const FormContainer = ({
   action,
   children
 }: PropsWithChildren<FormContainerProps>) => {
-  const [state, formAction] = useFormState(action, {
+  const [state, formAction] = useActionState(action, {
     message: ''
   })
 

@@ -32,11 +32,21 @@ const LinksDropdown = () => {
       <DropdownMenuContent align="start" className="w-40" sideOffset={10}>
         <SignedOut>
           <DropdownMenuItem>
+            <Link className="w-full" href="/about">
+              <button className="w-full text-left">關於我們</button>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link className="w-full" href="/products">
+              <button className="w-full text-left">商品一覽</button>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
             <SignInButton mode="modal">
               <button className="w-full text-left">登入</button>
             </SignInButton>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem>
             <SignUpButton mode="modal">
               <button className="w-full text-left">註冊</button>
@@ -45,7 +55,7 @@ const LinksDropdown = () => {
         </SignedOut>
         <SignedIn>
           {LINK_LIST.map(({ href, label }) => {
-            if (label === 'dashboard' && !isAdmin) return null
+            if (label === '後臺管理' && !isAdmin) return null
 
             return (
               <DropdownMenuItem key={label}>
